@@ -16,10 +16,8 @@ public class SmartFortwo extends Ambiente implements Regra {
 
     @Override
     public void aplicarRegra(List<Pessoa> pessoas) throws Exception {
-        for (Pessoa pessoa: this.pessoas) {
-            if (pessoa.getPodeDirigir())
-                return;
-        }
+        if (pessoas.stream().anyMatch(Pessoa::getPodeDirigir))
+            return;
         throw new Exception("Esta faltando um motorista no Smart For Two.");
     }
 

@@ -11,12 +11,10 @@ public class Presidiario extends Pessoa implements Regra {
     }
 
     public void aplicarRegra(List<Pessoa> pessoas) throws Exception {
-        if (pessoas.size() == 1)
+        if (pessoas.stream().allMatch(pessoa -> pessoa.equals(this)) ||
+                pessoas.stream().anyMatch(pessoa -> pessoa instanceof Policial))
             return;
-        for (Pessoa pessoa: pessoas) {
-            if (pessoa instanceof Policial)
-                return;
-        }
+
         throw new Exception("Esta faltando o policial junto ao presidiario.");
     }
 }
