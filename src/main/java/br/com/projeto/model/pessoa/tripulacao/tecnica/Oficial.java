@@ -17,10 +17,10 @@ public class Oficial extends Tecnica implements Regra {
 
         if (!chefeServico.isEmpty()) {
             for (Pessoa pessoa : pessoas) {
-                if (!(pessoa instanceof ChefeServico) && (pessoa instanceof Oficial))
+                if (!(pessoa instanceof ChefeServico) && !(pessoa instanceof Oficial))
                     return;
             }
-        }
+        } else return;
 
         throw new Exception("O Oficial não pode ficar sozinho com o Chefe de Serviço.");
     }

@@ -13,8 +13,6 @@ public class Aviao extends Ambiente {
     @Override
     public void adicionarPessoa(Pessoa pessoa) {
         this.pessoas.add(pessoa);
-        if (this.pessoas.size() == 8)
-            System.out.println("Parabéns! Você completou o jogo!");
     }
 
     @Override
@@ -23,8 +21,14 @@ public class Aviao extends Ambiente {
             throw new Exception("O Avião esta vazio.");
 
         Pessoa passageiro = this.pessoas.stream().filter(pessoa -> nome.equals(pessoa.getNome())).findAny().orElse(null);
-        this.pessoas.remove(passageiro);
+        if (passageiro == null)
+            throw new Exception("O passageiro " + nome + " não esta no Avião.");
 
+        this.pessoas.remove(passageiro);
         return passageiro;
+    }
+
+    public Integer getNumeroPassageiros() {
+        return pessoas.size();
     }
 }

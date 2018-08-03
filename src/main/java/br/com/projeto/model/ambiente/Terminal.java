@@ -21,8 +21,10 @@ public class Terminal extends Ambiente {
             throw new Exception("O Terminal esta vazio.");
 
         Pessoa passageiro = this.pessoas.stream().filter(pessoa -> nome.equals(pessoa.getNome())).findAny().orElse(null);
-        this.pessoas.remove(passageiro);
+        if (passageiro == null)
+            throw new Exception("O passageiro " + nome+ " não esta no Terminal.");
 
+        this.pessoas.remove(passageiro);
         return passageiro;
     }
 }

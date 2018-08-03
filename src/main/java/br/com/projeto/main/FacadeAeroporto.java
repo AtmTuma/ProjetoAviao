@@ -42,6 +42,8 @@ public class FacadeAeroporto {
         this.comissaria2 = comissaria2;
         this.policial = policial;
         this.presidiario = presidiario;
+
+        System.out.println("Desafio iniciado!\n");
     }
 
     public FacadeAeroporto() {
@@ -56,7 +58,7 @@ public class FacadeAeroporto {
         lista.add(this.chefeServico);
         this.comissaria1 = new Comissaria("comissaria 1", false);
         lista.add(this.comissaria1);
-        this.comissaria2 = new Comissaria("comissaria", false);
+        this.comissaria2 = new Comissaria("comissaria 2", false);
         lista.add(this.comissaria2);
         this.policial = new Policial("policial", true);
         lista.add(this.policial);
@@ -65,14 +67,22 @@ public class FacadeAeroporto {
         this.terminal = new Terminal(lista, "terminal");
         this.aviao = new Aviao(new ArrayList<>(), "aviao");
         this.smartFortwo = new SmartFortwo(new ArrayList<>(), "smart", terminal);
+
+        System.out.println("Desafio iniciado!\n");
     }
 
     public void irParaTerminal() {
         if (this.smartFortwo.getLocalizacao() instanceof Terminal)
             System.out.println("O Smart For Two já esta no terminal.");
         else {
-            this.smartFortwo.irPara(this.terminal);
-            System.out.println("O Smart For Two moveu-se para o terminal.");
+            try {
+                this.aviao.validaLista();
+                this.smartFortwo.validaLista();
+                this.smartFortwo.irPara(this.terminal);
+                System.out.println("O Smart For Two moveu-se para o terminal.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -80,16 +90,51 @@ public class FacadeAeroporto {
         if (this.smartFortwo.getLocalizacao() instanceof Aviao)
             System.out.println("O Smart For Two já esta no avião.");
         else {
-            this.smartFortwo.irPara(this.aviao);
-            System.out.println("O Smart For Two moveu-se para o avião.");
+            try {
+                this.terminal.validaLista();
+                this.smartFortwo.validaLista();
+                this.smartFortwo.irPara(this.aviao);
+                System.out.println("O Smart For Two moveu-se para o avião.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void listarPassageiros() {
+    public void listarPassageirosSmartForTwo() {
+        System.out.println("Pessoas no Smart For Two");
         this.smartFortwo.printPessoas();
     }
 
-    public void adicionarPassageiro(String nome) {
-        
+    public void listarPassageirosTerminal() {
+        System.out.println("Pessoas no Terminal");
+        this.terminal.printPessoas();
+    }
+
+    public void listarPassageirosAviao() {
+        System.out.println("Pessoas no Avião");
+        this.aviao.printPessoas();
+    }
+
+    public void adicionarPassageiroNoSmart(String nome) {
+        try {
+            this.smartFortwo.adicionarPassageiro(nome);
+            System.out.println("O passageiro "+ nome +" já esta no Smart For Two.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removerPassageiroDoSmart(String nome) {
+        try {
+            this.smartFortwo.removerPassageiro(nome);
+            System.out.println("O passageiro " + nome + " saiu do Smart For Two.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (this.aviao.getNumeroPassageiros() == 8) {
+            System.out.println("Parabéns!!! Você terminou o jogo!");
+        }
     }
 }

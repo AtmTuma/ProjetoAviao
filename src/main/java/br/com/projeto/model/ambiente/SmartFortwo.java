@@ -47,8 +47,10 @@ public class SmartFortwo extends Ambiente implements Regra {
             throw new Exception("O Smart For Two esta vazio.");
 
         Pessoa passageiro = this.pessoas.stream().filter(pessoa -> nome.equals(pessoa.getNome())).findAny().orElse(null);
-        this.pessoas.remove(passageiro);
+        if (passageiro == null)
+            throw new Exception("O passageiro " + nome + " não esta no Smart For Two.");
 
+        this.pessoas.remove(passageiro);
         return passageiro;
     }
 

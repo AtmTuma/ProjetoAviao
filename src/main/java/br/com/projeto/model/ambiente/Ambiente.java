@@ -24,7 +24,11 @@ public abstract class Ambiente {
     }
 
     public void printPessoas() {
-        this.pessoas.forEach(pessoa -> System.out.println(pessoa.getNome() + " "));
+        if (this.pessoas.isEmpty()) {
+            System.out.println("Não tem ninguem aqui no " + this.nome);
+            return;
+        }
+        this.pessoas.forEach(pessoa -> System.out.println(pessoas.indexOf(pessoa) + "--" +pessoa.getNome()));
     }
 
     public abstract void adicionarPessoa(Pessoa pessoa) throws Exception;

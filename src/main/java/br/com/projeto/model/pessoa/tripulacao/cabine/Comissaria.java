@@ -17,10 +17,10 @@ public class Comissaria extends Cabine implements Regra {
 
         if (!chefeServico.isEmpty()) {
             for (Pessoa pessoa : pessoas) {
-                if (!(pessoa instanceof Piloto) && (pessoa instanceof Comissaria))
+                if (!(pessoa instanceof Piloto) && !(pessoa instanceof Comissaria))
                     return;
             }
-        }
+        } else return;
 
         throw new Exception("A Comissaria não pode ficar sozinha com o Piloto.");
     }
